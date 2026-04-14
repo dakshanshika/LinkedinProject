@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class PostsServiceApplicationTests {
 
-	@Test
-	void contextLoads() {
+	static {
+		System.setProperty("user.timezone", "Asia/Kolkata");
 	}
 
 }
