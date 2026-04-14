@@ -20,6 +20,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final JwtService jwtService;
+    private final EmailService emailService;
 
     public UserDto signUp(SignupRequestDto signupRequestDto) {
         log.info("Signup a user with email: {}", signupRequestDto.getEmail());
@@ -33,6 +34,8 @@ public class AuthService {
         user.setPassword(BCrypt.hash(signupRequestDto.getPassword()));
 
         user = userRepository.save(user);
+        System.out.println("Thread used in signUp() : " +Thread.currentThread().getName());
+        emailService.trigerrOnBoardingEmail(user);
         return modelMapper.map(user, UserDto.class);
     }
 
