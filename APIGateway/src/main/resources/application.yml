@@ -1,0 +1,16 @@
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+##        - id: user-service
+##          uri: lb://USER-SERVICE
+##          predicates:
+##            - Path=/api/v1/users/**
+##          filters:
+##            - StripPrefix=2
