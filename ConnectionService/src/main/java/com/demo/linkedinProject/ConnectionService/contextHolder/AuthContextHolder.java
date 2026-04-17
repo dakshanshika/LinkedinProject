@@ -1,4 +1,4 @@
-package com.demo.linkedinProject.postsService.contextHolder;
+package com.demo.linkedinProject.ConnectionService.contextHolder;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -8,7 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class AuthContextHolder implements HandlerInterceptor {
 
-    private static ThreadLocal<String> userIdThreadLocal = new ThreadLocal<>();
+    private ThreadLocal<String> userIdThreadLocal = new ThreadLocal<>();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -23,7 +23,7 @@ public class AuthContextHolder implements HandlerInterceptor {
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 
-    public static String getUserIdFromCH(){
+    public String getUserIdFromCH(){
         return userIdThreadLocal.get();
     }
 }

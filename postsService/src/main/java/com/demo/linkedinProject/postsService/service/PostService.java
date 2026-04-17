@@ -1,10 +1,13 @@
 package com.demo.linkedinProject.postsService.service;
 
+import com.demo.linkedinProject.postsService.contextHolder.AuthContextHolder;
+import com.demo.linkedinProject.postsService.dto.PersonDto;
 import com.demo.linkedinProject.postsService.dto.PostCreateRequestDto;
 import com.demo.linkedinProject.postsService.dto.PostDto;
 import com.demo.linkedinProject.postsService.entity.Post;
 import com.demo.linkedinProject.postsService.exception.ResourceNotFoundException;
 import com.demo.linkedinProject.postsService.repository.PostRepository;
+import com.demo.linkedinProject.postsService.restCall.ConnectionServiceClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -21,6 +24,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final ModelMapper modelMapper;
+    private final ConnectionServiceClient connectionServiceClient;
 
     public PostDto createPost(PostCreateRequestDto postCreateRequestDto, Long userId) {
         log.info("Creating post for user with id: {}", userId);
@@ -33,7 +37,14 @@ public class PostService {
     public PostDto getPostById(Long postId) {
 
         log.info("Getting the post with ID: {}", postId);
+
+        String userId = AuthContextHolder.getUserIdFromCH();
+        //calling connection service and sending the user id in the header
+        List<PersonDto> personDtoList = connectionServiceClient.getFirstDegreeConnections(userId);
+
+
         Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post not found with ID: " + postId));
+
         return modelMapper.map(post, PostDto.class);
     }
 
