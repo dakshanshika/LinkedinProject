@@ -8,7 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ConnectionService" />
+        <module name="config-server" />
         <module name="DiscoveryServer" />
+        <module name="APIGateway" />
         <module name="userService" />
         <module name="postsService" />
       </profile>
@@ -16,8 +18,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="APIGateway" options="-parameters" />
       <module name="ConnectionService" options="-parameters" />
       <module name="DiscoveryServer" options="-parameters" />
+      <module name="config-server" options="-parameters" />
       <module name="postsService" options="-parameters" />
       <module name="userService" options="-parameters" />
     </option>
