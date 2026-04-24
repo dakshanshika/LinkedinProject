@@ -8,12 +8,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class AuthContextHolder implements HandlerInterceptor {
 
-    private ThreadLocal<String> userIdThreadLocal = new ThreadLocal<>();
+    private static ThreadLocal<Long> userIdThreadLocal = new ThreadLocal<>();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String userId= request.getHeader("X-User-Id");
-        userIdThreadLocal.set(userId);
+        userIdThreadLocal.set(Long.valueOf(userId));
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
@@ -23,7 +23,7 @@ public class AuthContextHolder implements HandlerInterceptor {
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 
-    public String getUserIdFromCH(){
+    public static Long getUserIdFromCH(){
         return userIdThreadLocal.get();
     }
 }
