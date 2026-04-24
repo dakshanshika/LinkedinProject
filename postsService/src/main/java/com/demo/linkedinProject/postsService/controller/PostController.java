@@ -40,13 +40,13 @@ public class PostController {
 
     @GetMapping("/test")
     public ResponseEntity<String> welcome(){
-        String userId = authContextHolder.getUserIdFromCH();
+        Long userId = authContextHolder.getUserIdFromCH();
         return ResponseEntity.ok("Welcome : "+ userId);
     }
 
     @PostMapping("/createPost")
     public ResponseEntity<PostDto> createPost(@RequestBody PostCreateRequestDto postCreateRequestDto) {
-        PostDto postDto = postService.createPost(postCreateRequestDto, 1L);
+        PostDto postDto = postService.createPost(postCreateRequestDto);
         return new ResponseEntity<>(postDto, HttpStatus.CREATED);
     }
 

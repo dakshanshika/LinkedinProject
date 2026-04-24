@@ -6,7 +6,7 @@ import lombok.Data;
 public class PersonDto {
     private Long id;
 
-    private String userId;
+    private Long userId;
 
     private String name;
 }

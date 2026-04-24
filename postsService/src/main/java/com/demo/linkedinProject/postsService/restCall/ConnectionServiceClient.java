@@ -4,6 +4,7 @@ import com.demo.linkedinProject.postsService.dto.PersonDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
@@ -11,5 +12,6 @@ import java.util.List;
 public interface ConnectionServiceClient {
 
     @GetMapping("/{userId}/first-degree")
-    public List<PersonDto> getFirstDegreeConnections(@PathVariable String userId);
+    public List<PersonDto> getFirstDegreeConnections(@PathVariable Long userId,
+                                                     @RequestHeader("X-User-Id") Long requesterId);
 }
